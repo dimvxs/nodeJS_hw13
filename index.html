@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Demo Chat</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />  
+    <style> 
+        body {
+            background-color: rgb(212, 219, 226); 
+            overflow-x: hidden; 
+        }
+        #msg_form {
+            position: absolute;  
+            margin-bottom: 0; 
+            bottom: 0; 
+        } 
+        h1 {
+            text-align: center; 
+        }
+        #name_form {
+            margin: 20px 0;
+            text-align: center;
+        }
+        /* Стили для боковой панели */
+        #sidebar {
+            height: 100%; /* Высота на весь экран */
+            width: 0; /* Изначально скрыта (ширина 0) */
+            position: fixed; /* Закреплена относительно окна */
+            z-index: 1; /* Поверх основного контента */
+            top: 0;
+            left: 0;
+            background-color: #111; /* Темный фон */
+            overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+            transition: 0.5s; /* Анимация при открытии/закрытии */
+            padding-top: 60px; /* Отступ сверху */
+            color: #ffffff;
+        }
+
+        /* Стили для ссылок внутри панели */
+        #sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        /* Цвет ссылки при наведении */
+        #sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        /* Кнопка закрытия панели */
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: #818181;
+        }
+
+        /* Кнопка открытия панели */
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+        }
+
+        /* Анимация открытия панели */
+        .openbtn:hover {
+            background-color: #444;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>   
+    <script src="client.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <button class="openbtn" onclick="openSidebar()">☰ Open Sidebar</button> <!-- Кнопка для открытия панели -->
+        
+        <div id="sidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+            <p>users online: </p>
+      
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 panel"> 
+                <h1>Messages</h1>
+            </div>
+        </div> 
+
+        <div class="row" id="name_form">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" id="name" class="form-control input-lg" placeholder="Enter your name..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-primary" type="button" id="name_btn">Submit Name</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="messages"></div>
+            </div>
+        </div>
+        <div class="row well" id="msg_form">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" id="inp" class="form-control input-lg" placeholder="Message..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-success" type="button" id="btn">Send!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px"; // Открытие панели
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0"; // Закрытие панели
+        }
+    </script>
+</body>
+</html>
